@@ -132,7 +132,7 @@
       y: canvas.height - 75,
       width: 40,
       height: 70,
-      speed: 10,
+      speed: 5,
       isShooting: false,
       bullets: []
     };
@@ -152,6 +152,7 @@
         velocidade_do_invasor = 3
       }
       invaders.push({
+        retirou_ponto: false,
         x: Math.random() * (canvas.width - 30),
         y: Math.random() * (canvas.height / 4),
         width: 30,
@@ -180,7 +181,7 @@
 
       //desenha o fundo do jogo
       var fundoImg = new Image();
-      fundoImg.src = "./imagens/imagem_fundo.jpg";
+      fundoImg.src = "./imagens/imagem_fundo_claro.jpg";
       ctx.drawImage(fundoImg, 0, 0); 
 
       // Draw spaceship
@@ -252,9 +253,10 @@
           window.location.reload();
           
         }
-        if(invaders[i].y + invaders[i].height>=canvas.height){
+        if((!invaders[i].retirou_ponto)&&(invaders[i].y>=canvas.height)){
+          invaders[i].retirou_ponto = true;
           playSound("perdePonto");
-          score -= 0.25;
+          score -= 4;
         }
       }
 
